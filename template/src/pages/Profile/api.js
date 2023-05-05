@@ -31,15 +31,14 @@ export const OnAuthStateChange = async () => {
 
 //获取用户个人信息
 
-export const GetProfile = async (id) => {
+export const GetProfile = async () => {
     try {
-        const { data, error } = await supabase
-            .from('profile')
-            .select("*").eq('id', id)
+        const { data: { user }, error } = await supabase
+        .auth.getUser()
         if (error) {
             throw error
         } else {
-            return data
+            return user.user_metadata
         }
     } catch (error) {
         throw error.message || error.error_description

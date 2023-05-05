@@ -34,7 +34,12 @@ const ChatRoom = () => {
             ).subscribe();
         if (id) {
             GetProfile(id).then(res => {
-                setUserInfo(res)
+                if (JSON.stringify(res) !== "{}") {
+                    setUserInfo(res)
+                } else {
+                    message.error("请先补充个人信息");
+                }
+
             })
         } else {
             message.error("请先登录")
@@ -61,9 +66,9 @@ const ChatRoom = () => {
     };
     return (
         <Layout style={{ height: '100vh' }}>
-            <HeaderComponent type={'4'}/>
-            <Content style={{ padding: '50px',width:'70%' }}>
-                <Row gutter={[16, 16]}  className="h-4/5 overflow-y-auto">
+            <HeaderComponent type={'4'} />
+            <Content style={{ padding: '50px', width: '70%' }}>
+                <Row gutter={[16, 16]} className="h-4/5 overflow-y-auto">
                     <Col span={16}>
                         <List
                             itemLayout="horizontal"
@@ -72,7 +77,7 @@ const ChatRoom = () => {
                                 <List.Item>
                                     <List.Item.Meta
                                         avatar={<Avatar src={item.imgUrl} />}
-                                        title={item.profile.user_name}
+                                        title={item.user_name}
                                         description={item.message}
                                     />
                                 </List.Item>

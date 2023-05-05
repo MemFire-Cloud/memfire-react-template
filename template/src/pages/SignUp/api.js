@@ -9,9 +9,6 @@ export const SignUp = async (email, password) => {
         if (error) {
             throw error
         } else {
-            await supabase
-                .from('profile')
-                .insert([{ id: user.id }])
             return user
         }
     } catch (error) {

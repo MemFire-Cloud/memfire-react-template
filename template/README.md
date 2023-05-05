@@ -5,27 +5,18 @@
 2.创建数据表
 
 ```sql
--- 创建用户信息表
-CREATE TABLE "public"."profile" ( 
-  "id" uuid default uuid_generate_v4() primary key,
-  "created_at" timestamp default now() ,
-  "email" TEXT,
-  "user_name" TEXT,
-  "avatar" VARCHAR,
-  "introduction" VARCHAR
-);
 -- 创建todo表
 CREATE TABLE "public"."todo_list" ( 
   "id" SERIAL,
   "created_at" timestamp default now() ,
-  "user_id" uuid references public.profile not null,
-  "todo" VARCHAR NOT NULL,
-  "completed" BOOLEAN NOT NULL
+  "user_id" uuid references auth.users not null,
+  "todo" VARCHAR NOT NULL
+  "completed" BOOLEAN NOT NULL,
 );
 -- 创建聊天记录表
 CREATE TABLE "public"."messages" ( 
   "id" SERIAL,
-  "user_id" uuid references public.profile not null,
+  "user_id" uuid references auth.users not null,
   "created_at" timestamp default now() ,
   "message" TEXT NOT NULL,
   "user_name" TEXT NOT NULL,

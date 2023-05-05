@@ -6,14 +6,14 @@ export const GetInitialMessages = async () => {
     try {
         const { data, error } = await supabase
             .from('messages')
-            .select(`id,message,profile (id,avatar,user_name)`)
+            .select()
         if (error) {
             throw error
         } else {
             if (data.length > 0) {
                 const responses = [];
                 for (const item of data) {
-                    item.imgUrl = await DownloadImage(item.profile.avatar);
+                    item.imgUrl = await DownloadImage(item.avatar);
                     responses.push(item);
                 }
             }
@@ -47,15 +47,14 @@ export const RemoveAllChannels = async () => {
 }
 
 //获取用户信息
-export const GetProfile = async (id) => {
+export const GetProfile = async () => {
     try {
-        const { data, error } = await supabase
-            .from('profile')
-            .select("*").eq('id', id)
+        const { data: { user }, error } = await supabase
+        .auth.getUser()
         if (error) {
             throw error
         } else {
-            return data[0]
+            return user.user_metadata
         }
     } catch (error) {
         throw error.message || error.error_description

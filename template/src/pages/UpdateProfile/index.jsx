@@ -16,7 +16,7 @@ function EditProfilePage() {
     // 在这里做更新个人信息的操作
     const handleSubmit = (event) => {
         event.preventDefault();
-        UpdateProfile({ email, introduction, ...{avatar:filePath,user_name:name} }, searchParams.get('id')).then((res) => {
+        UpdateProfile({ email, introduction, ...{avatar:filePath,user_name:name} }).then((res) => {
             if (res) {
                 navigate("/profile?id=" + searchParams.get('id'));
             }
@@ -66,18 +66,17 @@ function EditProfilePage() {
     const handleIntroductionChange = (event) => setIntroduction(event.target.value);
     const getProfile =  (event) => {
         GetProfile(searchParams.get('id')).then((res) => {
-            if (res) {
-                if (res) {
-                    if(res[0].avatar){
-                        downloadImage(res[0].avatar)
+            if (JSON.stringify(res) !== '{}') {
+                    if(res.avatar){
+                        downloadImage(res.avatar)
                     }
-                    setFilePath(res[0].avatar)
-                    setName(res[0].user_name)
-                    setEmail(res[0].email)
-                    setIntroduction(res[0].introduction);
-                }
+                    setFilePath(res.avatar)
+                    setName(res.user_name)
+                    setEmail(res.email)
+                    setIntroduction(res.introduction);
             }
         }).catch(err => {
+            message.error(err)
         })
     }
     return (

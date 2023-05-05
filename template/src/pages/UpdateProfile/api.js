@@ -4,13 +4,12 @@ import { supabase } from '../../supabaseClient'
 
 export const GetProfile = async (id) => {
     try {
-        const { data, error } = await supabase
-            .from('profile')
-            .select("*").eq('id', id)
+        const { data: { user }, error } = await supabase
+            .auth.getUser()
         if (error) {
             throw error
         } else {
-            return data
+            return user.user_metadata
         }
     } catch (error) {
         throw error.message || error.error_description
@@ -19,12 +18,11 @@ export const GetProfile = async (id) => {
 
 //修改用户个人信息
 
-export const UpdateProfile = async (info,id) => {
+export const UpdateProfile = async (info) => {
     try {
-        const { error } = await supabase
-            .from('profile')
-            .update(info)
-            .eq('id', id)
+        const { error } = await supabase.auth.updateUser({
+            data: info
+        })
         if (error) {
             throw error
         } else {
