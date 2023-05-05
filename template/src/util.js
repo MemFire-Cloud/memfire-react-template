@@ -1,0 +1,24 @@
+export const formatTime = dates => {
+    let date = new Date(dates)
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+  
+    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  }
+
+  const formatNumber = n => {
+    n = n.toString()
+    return n[1] ? n : `0${n}`
+  }
+  export const deleteEmpty=(obj) =>{
+    Object.keys(obj).forEach(key => {
+      if (obj[key] && typeof obj[key] === "object") deleteEmpty(obj[key]);
+      else if (obj[key] === "" || obj[key] === null || obj[key] === undefined) delete obj[key];
+    });
+    return obj;
+  }
+  

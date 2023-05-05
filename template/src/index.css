@@ -1,0 +1,106 @@
+
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.avatar {
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 100%;
+}
+.avatar.image {
+  object-fit: cover;
+}
+.avatar.no-image {
+  background-color: #333;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+}
+
+.mainHeader {
+  width: 100%;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.avatarPlaceholder {
+  border: var(--custom-border);
+  border-radius: var(--custom-border-radius);
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+ .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #444444;
+  text-transform: none !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+}
+:where(.css-dev-only-do-not-override-zjzpde).ant-menu-dark.ant-menu-horizontal >.ant-menu-item-selected{
+  background-color: rgb(79, 70, 220);
+}
+.button.primary {
+  background-color: rgb(79, 70, 220);
+  /* border: 1px solid #24b47e; */
+  height: 30px;
+  color: #fff;
+  border-radius: 4px;
+}
+.button:hover {
+  /* background-color: #81dfbd; */
+}
+
+.button > .loader {
+  width: 17px;
+  animation: spin 1s linear infinite;
+  filter: invert(1);
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.ant-btn-primary {
+  color: #fff;
+  background-color: #1677ff !important;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1) !important;
+}
+
+.ant-switch{
+  background-color: rgba(0, 0, 0, 0.25) !important;
+}
+.ant-switch-checked {
+  background-color: #1890ff !important;
+}

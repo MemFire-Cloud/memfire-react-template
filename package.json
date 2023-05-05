@@ -1,0 +1,15 @@
+{
+    "name": "cra-template-memfire-react-template",
+    "version": "0.1.1",
+    "type": "module",
+    "author": "LucaRao",
+    "description": "The base template for Create React App. for MemFire Cloud",
+    "license": "MIT",
+    "engines": {
+        "node": ">=16"
+    },
+    "files": [
+        "template",
+        "template.json"
+    ]
+}
