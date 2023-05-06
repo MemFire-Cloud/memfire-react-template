@@ -11,6 +11,7 @@ export default function Login() {
         event.preventDefault()
         setLoading(true)
         SignUp(email, password).then((res) => {
+            navigate("/profile");
             message.success('注册成功，自动帮您登录')
         }).catch(err => {
             message.error(err)

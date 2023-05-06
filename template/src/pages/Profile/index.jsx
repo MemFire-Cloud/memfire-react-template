@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Layout, message, } from "antd";
-import { SignOut, DownloadImage, GetProfile } from './api'
+import { DownloadImage } from './api'
 import HeaderComponent from "../../components/Header";
 
 const Profile = () => {
@@ -12,19 +12,16 @@ const Profile = () => {
     useEffect(() => {
         getProfile();
     }, [])
-    const getProfile = () => {
-        GetProfile(searchParams.get('id')).then((res) => {
-            if (JSON.stringify(res) !== '{}') {
-                if (res.avatar) {
-                    downloadImage(res.avatar);
+    const getProfile = async () => {
+        const { data:{session}, error } = await supabase.auth.getSession()
+            if (JSON.stringify(session.user.user_metadata) !== '{}') {
+                if (session.user.user_metadata.avatar) {
+                    downloadImage(session.user.user_metadata.avatar);
                 }
-                setPrefile(res)
+                setPrefile(session.user.user_metadata)
             } else {
                 message.info("暂无完整个人信息，请前去修改个人信息！");
             }
-        }).catch(err => {
-            message.error(err);
-        })
     }
     const downloadImage = (path) => {
         DownloadImage(path).then((res) => {
@@ -46,12 +43,11 @@ const Profile = () => {
                         </div>
                         <div className="md:col-span-8">
                             <h1 className="text-3xl font-semibold text-gray-900 mb-2">{prefile?.user_name || '暂无'}</h1>
-                            <p className="text-lg text-gray-600 mb-4">{prefile?.email || '暂无'}</p>
                             <p className="mt-5 text-lg text-gray-600">
                                 {prefile?.introduction || '暂无'}
                             </p>
                             <div className="mt-8 flex">
-                                <a href={'/updateProfile?id=' + searchParams.get('id')} className="w-full hover:text-white md:w-auto flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  md:py-4 md:text-lg md:px-10">
+                                <a href={'/updateProfile'} className="w-full hover:text-white md:w-auto flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  md:py-4 md:text-lg md:px-10">
                                     修改个人信息
                                 </a>
 

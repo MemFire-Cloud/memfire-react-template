@@ -8,18 +8,11 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [session, setSession] = useState(null)
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
             if (session) {
-                navigate("/profile?id=" + session.user.id);
-            }
-        })
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-            if (session) {
-                navigate("/profile?id=" + session.user.id);
+                navigate("/profile");
             }
         })
     })
@@ -27,16 +20,10 @@ export default function Login() {
         event.preventDefault()
         setLoading(true)
         UserLogin(email, password).then((res) => {
-            navigate("/profile?id=" + res.id);
+            navigate("/profile");
         }).catch(err => {
             message.error(err)
         })
-        // const { data: { user }, error } = await supabase.auth.signInWithPassword({ email, password })
-        // if (error) {
-        //     alert(error.error_description || error.message)
-        // } else {
-        //     navigate("/profile?id=" + user.id);
-        // }
         setLoading(false)
     };
     return (

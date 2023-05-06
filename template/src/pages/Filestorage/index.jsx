@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from 'react-router-dom';
 import { Layout, Menu, Upload, message, Button, Table, Divider, Popconfirm } from "antd";
 import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { UploadFile, DownloadFile, removeFile, ListFile, ListProfixFile } from './api'
