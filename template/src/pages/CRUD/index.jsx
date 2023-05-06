@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { supabase } from "../../supabaseClient";
 import { Space, Table, Button, Form, Input, Popconfirm, Layout, Modal, Pagination,message,Switch } from 'antd';
 import { FetchTodo, FetchPage, SearchText, UpdateTodo, AddTodo, DeleteTodo } from './api'
 import HeaderComponent from "../../components/Header";
@@ -10,7 +10,6 @@ const layout = {
 };
 
 const TableList = () => {
-    let [searchParams] = useSearchParams();
     const [addModel, setAddModel] = useState(false);
     const [editModel, setEditModel] = useState(false);
     const [todo_id, setTodoId] = useState(null);
@@ -33,9 +32,10 @@ const TableList = () => {
             message.error(err)
         })
     };
-    const handleOk =  () => {
+    const handleOk =  async () => {
+        const { data:{session}, error } = await supabase.auth.getSession()
         if (addModel) {
-            AddTodo({ todo: todoInfo, completed: completed,user_id: searchParams.get('id') }).then((res) => {
+            AddTodo({ todo: todoInfo, completed: completed,user_id: session.user.id }).then((res) => {
                 getTodoList(start, end)
                 setAddModel(false);
                 setEditModel(false)

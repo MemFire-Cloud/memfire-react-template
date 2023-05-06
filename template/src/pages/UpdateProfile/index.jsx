@@ -64,7 +64,7 @@ function EditProfilePage() {
     const getProfile =  async (event) => {
         const { data:{session}, error } = await supabase.auth.getSession()
             if (JSON.stringify(session.user.user_metadata) !== '{}') {
-                    if(res.avatar){
+                    if(session.user.user_metadata.avatar){
                         downloadImage(session.user.user_metadata.avatar)
                     }
                     setFilePath(session.user.user_metadata.avatar)

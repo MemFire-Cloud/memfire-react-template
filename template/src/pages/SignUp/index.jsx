@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { SignUp } from './api'
 export default function Login() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

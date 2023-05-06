@@ -1,12 +1,10 @@
 import { React, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { supabase } from "../../supabaseClient";
 import { Layout, message, } from "antd";
 import { DownloadImage } from './api'
 import HeaderComponent from "../../components/Header";
 
 const Profile = () => {
-    const navigate = useNavigate();
-    let [searchParams] = useSearchParams();
     const [prefile, setPrefile] = useState({})
     const [avatarUrl, setAvatarUrl] = useState(null)
     useEffect(() => {

@@ -10,7 +10,6 @@ export default function Login() {
     const [password, setPassword] = useState('')
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
             if (session) {
                 navigate("/profile");
             }
