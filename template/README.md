@@ -15,7 +15,7 @@ CREATE TABLE "public"."todo_list" (
 );
 -- 创建聊天记录表(Chatroom)
 CREATE TABLE "public"."messages" (
-  "id" SERIAL,
+  "id" SERIAL primary key,
   "user_id" uuid references auth.users NOT NULL,
   "created_at" timestamp default now(),
   "message" TEXT NOT NULL,
@@ -43,5 +43,18 @@ create policy "聊天室内的信息所有人可见" on messages
 create policy "用户只能发送自己的信息" on messages
   for insert
   with check (auth.uid() = user_id);
+
+-- 创建存储桶
+insert into storage.buckets (id, name)
+  values ('avatars', 'avatars');
+
+insert into storage.buckets (id, name)
+  values ('files', 'files');
+
+-- 存储 策略
+create policy "允许所有人上传下载删除修改文件" on storage.objects
+  for all
+  using ( true )
+  with check (true);
 ```
 3.在supabaseClient.js文件里配置memfire cloud应用的API访问地址和anon_key
